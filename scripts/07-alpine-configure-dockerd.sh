@@ -48,22 +48,53 @@ create_docker_daemon_config_file(){
     mkdir -p /etc/docker
 cat > /etc/docker/daemon.json <<EOF
 {
-  "registry-mirrors": [
-    "https://registry.cn-hangzhou.aliyuncs.com",
-    "https://hub-mirror.c.163.com", 
-    "https://mirror.ccs.tencentyun.com",
-    "https://docker.mirrors.tuna.tsinghua.edu.cn"
-  ]
+    "registry-mirrors" : ["https://docker.registry.cyou",
+    "https://docker-cf.registry.cyou",
+    "https://dockercf.jsdelivr.fyi",
+    "https://docker.jsdelivr.fyi",
+    "https://dockertest.jsdelivr.fyi",
+    "https://mirror.aliyuncs.com",
+    "https://dockerproxy.com",
+    "https://mirror.baidubce.com",
+    "https://docker.m.daocloud.io",
+    "https://docker.nju.edu.cn",
+    "https://docker.mirrors.sjtug.sjtu.edu.cn",
+    "https://docker.mirrors.ustc.edu.cn",
+    "https://mirror.iscas.ac.cn",
+    "https://docker.rainbond.cc",
+    "https://do.nark.eu.org",
+    "https://dc.j8.work",
+    "https://dockerproxy.com",
+    "https://gst6rzl9.mirror.aliyuncs.com",
+    "https://registry.docker-cn.com",
+    "http://hub-mirror.c.163.com",
+    "http://mirrors.ustc.edu.cn/",
+    "https://mirrors.tuna.tsinghua.edu.cn/",
+    "http://mirrors.sohu.com/" 
+    ],
+    "insecure-registries" : [
+        "registry.docker-cn.com",
+        "docker.mirrors.ustc.edu.cn"
+    ]
 }
 EOF
 }
 
+get_wsl_ip(){
+    local wslip=$(ip addr show eth0 | grep "inet " | awk '{print $2}' | cut -d/ -f1;)
+    echo $wslip;
+}
+
 prepare_dockerd_cmd(){
+    wslip=$(get_wsl_ip);
     # echo "dockerd --config-file=/etc/docker/daemon.json --pidfile /var/run/docker.pid &> /var/log/dockerd.log &" >> ~/.profile
     DOCKERD_CMD="dockerd --host=fd:// --host=tcp://0.0.0.0:2375 --config-file=/etc/docker/daemon.yaml --pidfile /var/run/docker.pid &> /var/log/dockerd.log &"
 
+    # dockerd cmd with logfile + Unix socket + local tcp socket + registry-mirrors in daemon.json + wsl ip
+    DOCKERD_CMD="dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --host=tcp://$wslip:2375 --tls=false --config-file=/etc/docker/daemon.json &> /var/log/dockerd.log &"
+
     # dockerd cmd with logfile + Unix socket + local tcp socket + registry-mirrors in daemon.json
-    DOCKERD_CMD="dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --config-file=/etc/docker/daemon.json &> /var/log/dockerd.log &"
+    # DOCKERD_CMD="dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --config-file=/etc/docker/daemon.json &> /var/log/dockerd.log &"
 
     # dockerd cmd with logfile + Unix socket + local tcp socket
     # DOCKERD_CMD="dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 &> /var/log/dockerd.log &"
