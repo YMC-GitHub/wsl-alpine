@@ -8,23 +8,23 @@ info_status(){
     local msg_warn="ℹ️"
 
     if [ $status -eq 0 ]; then
-        echo "$msg_success $msg_body";
-    else if [ $status -eq 1 ];
-        echo "$msg_failed $msg_body";
+        echo "$msg_success $msg_body"
+    elif [ $status -eq 1 ]; then
+        echo "$msg_failed $msg_body"
     else
-        echo "$msg_warn $msg_body";
+        echo "$msg_warn $msg_body"
     fi
 }
 # info_status "check docker status" 0
 
 stop_dockerd(){
     if pgrep dockerd >/dev/null; then
-    echo "stoping Dockerd..."
-    pkill dockerd
-    sleep 2
-    if pgrep dockerd >/dev/null; then
-        pkill -9 dockerd
-    fi
+        echo "Stoping Dockerd..."
+        pkill dockerd
+        sleep 2
+        if pgrep dockerd >/dev/null; then
+            pkill -9 dockerd
+        fi
         info_status "Dockerd stopped" 0
     else
         info_status "Dockerd not running, no need to stop" 2
