@@ -14,9 +14,20 @@ check_result(){
     fi
 }
 
+msg_padd(){
+    local msg=$1
+    local msg_max_len=$2
+    local msg_len=${#msg} 
+    local msg_fill_length=$((($msg_max_len-$msg_len+2)/2))
+    local msg_padding=$(printf "%-${msg_fill_length}s" | tr ' ' '-') 
+    echo "$msg_padding-$msg-$msg_padding" | cut -c 1-$msg_max_len
+}
+
+
 info_step(){
     local msg=$1
-    echo "-------------------------$msg-------------------------"
+    # echo "-------------------------$msg-------------------------"
+    msg_padd "$msg" 60
 }
 
 info_status(){
