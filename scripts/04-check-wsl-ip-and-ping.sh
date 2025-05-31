@@ -1,6 +1,8 @@
 # get wsl ip in wsl:
-wslip=$(ip addr show eth0 | grep "inet " | awk '{print $2}' | cut -d/ -f1;)
-echo $wslip;
+get_wsl_ip(){
+    local wslip=$(ip addr show eth0 | grep "inet " | awk '{print $2}' | cut -d/ -f1;)
+    echo $wslip;
+}
 
 check_result(){
     local msg_head=$1
@@ -15,6 +17,7 @@ check_result(){
         [ $flag_exit -eq 0 ] && exit 1;
     fi
 }
+
 ping_network(){
     local count=$1;
     # ping loop address in wsl:
@@ -22,6 +25,7 @@ ping_network(){
     check_result "ping loop address in wsl" 0;
 
     # ping wsl ip in wsl:
+    wslip=$(get_wsl_ip)
     ping -c $count $wslip  > /dev/null 2>&1;
     check_result "ping wsl ip in wsl" 1;
 
@@ -30,4 +34,6 @@ ping_network(){
     check_result "ping internet in wsl" 1;
 }
 
+wslip=$(get_wsl_ip)
+echo $wslip;
 ping_network 3
