@@ -5,15 +5,16 @@ get_wsl_ip(){
 }
 
 check_result(){
-    local msg_head=$1
+    local status=$?
+    local msg_body=$1
     local flag_exit=$2
     local msg_success="✅"
     local msg_failed="❌"
 
-    if [ $? -eq 0 ]; then
-        echo "$msg_head $msg_success";
+    if [ $status -eq 0 ]; then
+        echo "$msg_success $msg_body";
     else
-        echo "$msg_head $msg_failed";
+        echo "$msg_failed $msg_body";
         [ $flag_exit -eq 0 ] && exit 1;
     fi
 }
@@ -31,7 +32,10 @@ ping_network(){
 
     # ping internet in wsl:
     ping -c $count www.baidu.com > /dev/null 2>&1;
-    check_result "ping internet in wsl" 1;
+    check_result "ping baidu in wsl" 1;
+
+    ping -c $count google.com > /dev/null 2>&1;
+    check_result "ping google in wsl" 1;
 }
 
 ip_route_show(){
