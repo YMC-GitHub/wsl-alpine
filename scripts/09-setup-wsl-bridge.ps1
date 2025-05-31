@@ -97,6 +97,29 @@ function Info_Status {
     }
 }
 
+function Remove_VirtualSwitch {
+    param (
+        [string]$SwitchName
+    )
+    try {
+        $switch = Get-VMSwitch -Name $SwitchName -ErrorAction SilentlyContinue
+        if ($switch) {
+            # Disconnect all first
+            $switch | Disconnect-VMSwitch -Force -ErrorAction SilentlyContinue
+            Remove-VMSwitch -Name $SwitchName -Force
+            Info_Status -msg_body "Virtual switch deleted: $SwitchName" -status 0
+        } else {
+            Info_Status -msg_body "Virtual switch not found: $SwitchName" -status 2
+        }
+    } catch {
+        Info_Status -msg_body "Virtual switch deleted: $SwitchName" -status 1
+        Write-Host "Please try manual removal:"
+        Write-Host "1. Open Hyper-V Manager"
+        Write-Host "2. Right-click switch '$SwitchName'"
+        Write-Host "3. Select 'Remove'"
+    }
+}
+
 if ($Action) {
     switch ($Action) {
         1 {
@@ -108,8 +131,13 @@ if ($Action) {
         3 {
             Notify_WSLRestart -SwitchName $switchName
         }
+        4 {
+            Remove_VirtualSwitch -SwitchName $switchName
+        }
+
         default {
             Write-Host "Invalid action number. Please use 1, 2, or 3." -ForegroundColor Red
+            Info_Status -msg_body "Invalid action number. Please use 1, 2, 3, or 4." -status 2
         }
     }
 } else {
