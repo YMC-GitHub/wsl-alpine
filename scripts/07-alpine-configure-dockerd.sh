@@ -120,9 +120,9 @@ start_dockerd(){
 
 check_docker_daemon_status(){
     if docker info >/dev/null 2>&1; then
-        echo "✅ Docker Start success (PID: $(pgrep dockerd))"
+        info_status "Docker Start success (PID: $(pgrep dockerd))" 0
     else
-        echo "❌ Docker Start fail (Please check /var/log/dockerd.log)"
+        info_status "Docker Start fail (Please check /var/log/dockerd.log)" 1
         cat /var/log/dockerd.log
         exit 1
     fi
