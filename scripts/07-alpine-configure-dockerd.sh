@@ -128,14 +128,42 @@ check_docker_daemon_status(){
     fi
 }
 
-start_dockerd_on_boot(){
-    # start dockerd on boot
+start_dockerd_on_login(){
+    # start dockerd on login
     echo "$DOCKERD_CMD"
     if grep -q "dockerd.*" /etc/rc.local > /dev/null 2>&1; then
         sed -i "/dockerd.*/c\\$DOCKERD_CMD" /etc/rc.local
     else
         echo "$DOCKERD_CMD" >> /etc/rc.local
     fi
+}
+unregister_dockerd_on_login(){
+    # unregister dockerd on login
+    if grep -q "dockerd.*" /etc/rc.local > /dev/null 2>&1; then
+        sed -i "/dockerd.*/d" /etc/rc.local
+    fi
+    # cat /etc/rc.local
+}
+
+start_dockerd_on_boot(){
+    # start dockerd on boot
+    echo "$DOCKERD_CMD"
+    DOCKER_ARGS=$(echo $DOCKERD_CMD | sed 's/dockerd//g')
+    cat > /etc/init.d/dockerd <<EOF
+#!/sbin/openrc-run
+command="dockerd"
+command_args="$DOCKER_ARGS"
+command_background=true
+EOF
+    # cat /etc/init.d/dockerd
+    chmod +x /etc/init.d/dockerd
+    rc-update add dockerd default
+}
+
+unregister_dockerd_on_boot(){
+    # unregister dockerd on boot
+    rc-update del dockerd default
+    rm -f /etc/init.d/dockerd   
 }
 
 get_registry_mirrors(){
@@ -172,7 +200,14 @@ check_docker_daemon_status
 info_status "$step_name" $?
 
 
+# unregister dockerd on login
+step_name="unregister dockerd on login"
+info_step "$step_name"
+unregister_dockerd_on_login
+info_status "$step_name" $?
+
 # 6. start when system boot up
+
 step_name="start dockerd on boot"
 info_step "$step_name"
 start_dockerd_on_boot
