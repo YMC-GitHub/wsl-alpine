@@ -1,15 +1,15 @@
 #!/bin/sh
 
 check_result(){
-    local msg_head=$1
+    local msg_body=$1
     local flag_exit=$2
     local msg_success="✅"
     local msg_failed="❌"
 
     if [ $? -eq 0 ]; then
-        echo "$msg_head $msg_success";
+        echo "$msg_success $msg_body";
     else
-        echo "$msg_head $msg_failed";
+        echo "$msg_failed $msg_body";
         [ $flag_exit -eq 0 ] && exit 1;
     fi
 }
@@ -31,14 +31,14 @@ info_step(){
 }
 
 info_status(){
-    local msg_head=$1
+    local msg_body=$1
     local status=$2
     local msg_success="✅"
     local msg_failed="❌"
     if [ $status -eq 0 ]; then
-        echo "$msg_head $msg_success";
+        echo "$msg_success $msg_body";
     else
-        echo "$msg_head $msg_failed";
+        echo "$msg_failed $msg_body";
     fi
 }
 # info_status "check docker status" 0
