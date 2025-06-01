@@ -28,8 +28,8 @@
 - wsl(alpine)中是否支持rc-update 管理服务
 
 ```powershell
+# del unused files
 sh -c "rm -rf wsl2/scripts/*todel*"
-
 yours touch wsl2/ask.ai.wsl.01-intro.md
 yours touch wsl2/ask.ai.wsl.02-intro.md
 yours touch wsl2/ask.ai.wsl.03-intro.md
@@ -115,7 +115,30 @@ git add $name/* ; git commit -m "docs($name): set remote api to enable  with 3 w
 
 $name="wsl2";
 
+```
 
+## opv - docs files
+```bash 
+sh -c "mkdir -p $name/docs"
+sh -c "cp $name/ask.ai* $name/docs"
+sh -c "rm $name/ask.ai*.md"
+git add $name/docs/*.md;git commit -m "docs($name): add note"
+
+
+# git mv wsl2/*docker*.md git mv wsl2/docs 
+sh -c "cp $name/*docker*.md $name/docs"
+sh -c "rm $name/*docker*.md"
+
+sh -c "cp $name/*podman*.md $name/docs"
+sh -c "rm $name/*podman*.md"
+
+git add $name/opvthis.md ; git commit -m "docs($name): add note for opv.this.repo"
+git add $name/README.md ; git commit -m "docs($name): put usage"
+
+```
+
+## opv - scripts files
+```bash 
 git add $name/scripts/*enable-wsl*;git commit -m "scripts($name): enable wsl feature"
 git add $name/scripts/*set-wsl-version*;git commit -m "scripts($name): set wsl version as 2"
 git add $name/scripts/*download-unpack*;git commit -m "scripts($name): download distro from github and install it"
@@ -153,23 +176,13 @@ git add $name/scripts/*alpine_configure_bridged*;git commit -m "scripts($name): 
 git add $name/scripts/*alpine_configure_bridged*;git commit -m "scripts($name): use static ip and eth0_up on boot"
 git add $name/scripts/*README*;git commit -m "docs($name): add note for scripts"
 
-git add $name/docs/*.md;git commit -m "docs($name): add note"
-
-sh -c "mkdir -p $name/docs"
-sh -c "cp $name/ask.ai* $name/docs"
-sh -c "rm $name/ask.ai*.md"
 sh -c "rm $name/*.ps1"
-sh -c "rm $name/*.sh"
-
-# git mv wsl2/*docker*.md git mv wsl2/docs 
-sh -c "cp $name/*docker*.md $name/docs"
-sh -c "rm $name/*docker*.md"
-
-sh -c "cp $name/*podman*.md $name/docs"
-sh -c "rm $name/*podman*.md"
-
-git add $name/opvthis.md ; git commit -m "docs($name): add note for opv.this.repo"
-git add $name/README.md ; git commit -m "docs($name): put usage"
-
+sh -c "rm $name/*.sh
 ```
 
+## git - move files
+```bash
+# move opv.this.repo.md to docs/opv.this.repo.md
+# git mv opv.this.repo.md docs/opv.this.repo.md
+git mv opvthis.md docs/opv.this.repo.md
+```
