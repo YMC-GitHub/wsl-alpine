@@ -16,8 +16,6 @@
 
 ## 下载|解压|安装操作系统
 
-该脚本用于下载和解压CentOS相关文件，输入参数3时下载，输入4时解压，输入5时删除，输入6时安装，接受url和workspace作为参数。
-
 ```powershell
 $url="https://github.com/mishamosher/CentOS-WSL/releases/download/7.9-2211/CentOS7.zip"
 $url="https://ghfast.top/https://github.com/mishamosher/CentOS-WSL/releases/download/9-stream-20230626/CentOS9-stream.zip"
@@ -52,18 +50,6 @@ $workspace="I:/10_wsl2"
 # get
 get-content $HOME/.wslconfig;
 ```
-
-<!-- ## login default distion wsl bash
-```bash
-wsl -l -v;
-wsl --setdefault alpine-3.18;
-wsl;
-``` -->
-
-<!-- ## get wsl ip and ping network in wsl
-```bash
-sh ./wsl2/scripts/04-check-wsl-ip-and-ping.sh
-``` -->
 
 ## 在 Windows 中检查 WSL IP 并进行网络测试
 ```powershell
