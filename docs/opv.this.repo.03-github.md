@@ -68,8 +68,6 @@ ssh-keygen -C "$email" -f $HOME/.ssh/gh_$repo_uname -t ed25519 -N '""' #done
 sh -c "ls -al ~/.ssh/gh_$repo_uname*"
 
 sh -c "ls -al ~/.ssh/gh_*"
-
-
 ```
 
 [ssh-keygen-in-windows-powershell-create-a-key-pair-and-avoid-pr](https://superuser.com/questions/1634427/non-interactive-ssh-keygen-in-windows-powershell-create-a-key-pair-and-avoid-pr)
@@ -220,6 +218,6 @@ git remote -v
 
 ## gh - change repo description in cli (bash)
 ```bash
-repo_desc="setup mysql in docker(alpine)";
+repo_desc="setup wsl(alpine) in window";
 gh repo edit $repo --description "$repo_desc"
 ```

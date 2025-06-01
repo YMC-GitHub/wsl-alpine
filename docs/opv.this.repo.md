@@ -1,3 +1,9 @@
+## opv workflow
+- ask for ai to code or note (01-ask-ai)
+- version control (02-git)
+- code on github (03-github)
+- ...
+
 ## touch files
 ```powershell
 # del unused files
@@ -109,6 +115,9 @@ git add docs/opv.this*.md ; git commit -m "docs(core): rename and put note"
 
 # 
 sh -c "rm opvthis.md"
+
+git add docs/opv.this*.md ; git commit -m "docs(core): rename and put note"
+git add docs/opv.this*.md ; git commit -m "docs(core): put repo desc"
 
 ```
 
