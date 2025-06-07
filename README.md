@@ -107,6 +107,8 @@ wsl sh ./wsl2/scripts/07-alpine-configure-dockerd.sh
 ## 在 Windows 中从 Docker Hub 拉取 Alpine 镜像
 
 ```powershell
+docker pull alpine:latest
+
 # in a word:
 wsl docker run --rm --name alpine alpine:latest /bin/sh -c "echo 'Hello, Alpine!'"
 # wsl docker image ls 

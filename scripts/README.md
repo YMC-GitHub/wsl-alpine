@@ -61,7 +61,7 @@ wsl;
 
 <!-- ## get wsl ip and ping network in wsl
 ```bash
-sh ./wsl2/scripts/04-check-wsl-ip-and-ping.sh
+sh ./scripts/04-check-wsl-ip-and-ping.sh
 ``` -->
 
 ## check wsl ip and ping network of wsl in win
@@ -69,34 +69,34 @@ sh ./wsl2/scripts/04-check-wsl-ip-and-ping.sh
 # wsl sh /mnt/d/book/wsl2/scripts/04-check-wsl-ip-and-ping.sh
 
 # wsl pwd
-wsl sh ./wsl2/scripts/04-check-wsl-ip-and-ping.sh
+wsl sh ./scripts/04-check-wsl-ip-and-ping.sh
 ```
 
 
 ## alpine set apk repo source in win
 ```bash
 # 查看可用源列表
-wsl sh ./wsl2/scripts/05-alpine-set-apk-repo.sh list
+wsl sh ./scripts/05-alpine-set-apk-repo.sh list
 
-wsl sh ./wsl2/scripts/05-alpine-set-apk-repo.sh current
+wsl sh ./scripts/05-alpine-set-apk-repo.sh current
 
 # 使用阿里云源
-wsl sh ./wsl2/scripts/05-alpine-set-apk-repo.sh aliyun
+wsl sh ./scripts/05-alpine-set-apk-repo.sh aliyun
 
 # 使用自定义源
-wsl sh ./wsl2/scripts/05-alpine-set-apk-repo.sh --set http://your-mirror.com/alpine/v3.18/main
+wsl sh ./scripts/05-alpine-set-apk-repo.sh --set http://your-mirror.com/alpine/v3.18/main
 ```
 
 
 ## alpine use shanghai timezone in win
 ```bash
-wsl sh ./wsl2/scripts/05-alpine-set-timezone.sh Asia/Shanghai
+wsl sh ./scripts/05-alpine-set-timezone.sh Asia/Shanghai
 ```
 
 
 ## alpine install docker in win
 ```bash
-wsl sh ./wsl2/scripts/06-alpine-install-docker.sh
+wsl sh ./scripts/06-alpine-install-docker.sh
 
 # wsl docker --version;
 # wsl docker info
@@ -105,9 +105,9 @@ wsl sh ./wsl2/scripts/06-alpine-install-docker.sh
 
 ## alpine configure dockerd in win
 ```bash
-wsl sh ./wsl2/scripts/08-alpine-stop-dockerd.sh
+wsl sh ./scripts/08-alpine-stop-dockerd.sh
 
-wsl sh ./wsl2/scripts/07-alpine-configure-dockerd.sh
+wsl sh ./scripts/07-alpine-configure-dockerd.sh
 # wsl docker info
 
 ping -c 3 www.baidu.com
@@ -206,10 +206,10 @@ Remove-NetAdapter -Name "vEthernet (WSL (Hyper-V))" -Confirm:$false
 
 ## tell wsl use bridge network
 ```powershell
-wsl ./wsl2/scripts/10-alpine_configure_bridged_network.sh 192.168.0.106/24 192.168.0.1 192.168.0.1;
+wsl ./scripts/10-alpine_configure_bridged_network.sh 192.168.0.106/24 192.168.0.1 192.168.0.1;
 wsl --shutdown;sh -c "sleep 3";
 
-wsl ./wsl2/scripts/04-check-wsl-ip-and-ping.sh
+wsl ./scripts/04-check-wsl-ip-and-ping.sh
 
 # 将脚本安装到alpine bin，并让alpine启动时执行 10-alpine_configure_bridged_network.sh 192.168.0.106/24 192.168.0.1 192.168.0.1;
 ```

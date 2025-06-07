@@ -162,4 +162,14 @@ git add $name/scripts/*README*;git commit -m "docs($name): add note for scripts"
 
 sh -c "rm $name/*.ps1"
 sh -c "rm $name/*.sh
+
+git add .editorconfig;
+git add scripts/*.sh;
+git commit -m "build(core): put eof and indent_size"
+
+git add scripts/*.md
+git add docs/opv.*.md
+git add *.md
+git commit -m "docs(core): put note"
+
 ```
