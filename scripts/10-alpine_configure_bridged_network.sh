@@ -43,10 +43,14 @@ info_status(){
     local status=$2
     local msg_success="✅"
     local msg_failed="❌"
+    local msg_warn="ℹ️"
+
     if [ $status -eq 0 ]; then
-        echo "$msg_success $msg_body";
+        echo "$msg_success $msg_body"
+    elif [ $status -eq 1 ]; then
+        echo "$msg_failed $msg_body"
     else
-        echo "$msg_failed $msg_body";
+        echo "$msg_warn $msg_body"
     fi
 }
 

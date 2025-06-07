@@ -10,3 +10,10 @@ end_of_line = lf
 charset = utf-8
 trim_trailing_whitespace = false
 insert_final_newline = false
+
+[*.ps1]
+end_of_line = crlf
+
+[*.sh]
+end_of_line = lf
+indent_size = 4
