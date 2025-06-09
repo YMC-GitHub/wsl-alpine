@@ -1,7 +1,7 @@
 # s: set *.js and other as js file for js project
 # disable other with linguist-detectable for ps1
 *.sh linguist-language=true
-*.ps1 linguist-language=false
+*.ps1 linguist-language=true
 *.md linguist-detectable=false
 *.py linguist-detectable=false
 *.html linguist-detectable=false
