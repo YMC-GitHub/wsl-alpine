@@ -6,12 +6,12 @@
 ## 启用 WSL 的虚拟机平台功能
 以管理员身份运行 PowerShell，执行以下命令：
 ```powershell
-.\wsl2\scripts\00-enable-wsl-vmp.ps1
+.\scripts\00-enable-wsl-vmp.ps1
 ```
 
 ## 设置 WSL 版本并列出当前安装的系统
 ```powershell
-.\wsl2\scripts\01-set-wsl-version-and-list.ps1
+.\scripts\01-set-wsl-version-and-list.ps1
 ```
 
 ## 下载|解压|安装操作系统
@@ -22,21 +22,21 @@ $url="https://ghfast.top/https://github.com/mishamosher/CentOS-WSL/releases/down
 $url="https://github.com/yuk7/AlpineWSL/releases/download/3.18.3-0/Alpine.zip";$WSL_DISTRO="alpine-3.18";$TODYFOMAT="20250530";
 $workspace="I:/10_wsl2"
 
-# 下载
-.\wsl2\scripts\02-download-unpack-centos.ps1 -Url $url -Workspace $workspace -Action 3
+# 下载 (need idman installed)
+.\scripts\02-download-unpack-centos.ps1 -Url $url -Workspace $workspace -Action 3
 # 解压
-.\wsl2\scripts\02-download-unpack-centos.ps1 -Url $url -Workspace $workspace -Action 4
+.\scripts\02-download-unpack-centos.ps1 -Url $url -Workspace $workspace -Action 4
 # 删除解压文件
-.\wsl2\scripts\02-download-unpack-centos.ps1 -Url $url -Workspace $workspace -Action 5
+.\scripts\02-download-unpack-centos.ps1 -Url $url -Workspace $workspace -Action 5
 
 # install distro to be some machine
-.\wsl2\scripts\02-download-unpack-centos.ps1 -Url $url -Workspace $workspace -Action 6 -WSL_DISTRO "$WSL_DISTRO" -TODYFOMAT "$TODYFOMAT"
+.\scripts\02-download-unpack-centos.ps1 -Url $url -Workspace $workspace -Action 6 -WSL_DISTRO "$WSL_DISTRO" -TODYFOMAT "$TODYFOMAT"
 
 # set default machine
-.\wsl2\scripts\02-download-unpack-centos.ps1 -Url $url -Workspace $workspace -Action 7 -WSL_DISTRO "$WSL_DISTRO" 
+.\scripts\02-download-unpack-centos.ps1 -Url $url -Workspace $workspace -Action 7 -WSL_DISTRO "$WSL_DISTRO" 
 
 # del machine distro
-.\wsl2\scripts\02-download-unpack-centos.ps1 -Url $url -Workspace $workspace -Action 8 -WSL_DISTRO "$WSL_DISTRO"
+.\scripts\02-download-unpack-centos.ps1 -Url $url -Workspace $workspace -Action 8 -WSL_DISTRO "$WSL_DISTRO"
 
 # wsl -l -v;
 # wsl --setdefault alpine-3.18;
@@ -45,7 +45,7 @@ $workspace="I:/10_wsl2"
 ## 在 Windows 中为 WSL 设置 NAT 网络 （让WSL使用NAT网络）
 ```powershell
 # set
-.\wsl2\scripts\03-set-wsl-nat-config.ps1
+.\scripts\03-set-wsl-nat-config.ps1
 
 # get
 get-content $HOME/.wslconfig;
@@ -164,16 +164,16 @@ docker image ls
 
 
 # use with default network adapter name and switch name
-# .\wsl2\scripts\09-setup-wsl-bridge.ps1
+# .\scripts\09-setup-wsl-bridge.ps1
 
- .\wsl2\scripts\09-setup-wsl-bridge.ps1 -netAdapterName "WLAN-WiFi" -switchName "WslBridge"
+ .\scripts\09-setup-wsl-bridge.ps1 -netAdapterName "WLAN-WiFi" -switchName "WslBridge"
 #  add
-# .\wsl2\scripts\09-setup-wsl-bridge.ps1 -netAdapterName "WLAN-WiFi" -switchName "WslBridge" -Action 1
-# .\wsl2\scripts\09-setup-wsl-bridge.ps1 -netAdapterName "WLAN-WiFi" -switchName "WslBridge" -Action 2
-# .\wsl2\scripts\09-setup-wsl-bridge.ps1 -netAdapterName "WLAN-WiFi" -switchName "WslBridge" -Action 3
+# .\scripts\09-setup-wsl-bridge.ps1 -netAdapterName "WLAN-WiFi" -switchName "WslBridge" -Action 1
+# .\scripts\09-setup-wsl-bridge.ps1 -netAdapterName "WLAN-WiFi" -switchName "WslBridge" -Action 2
+# .\scripts\09-setup-wsl-bridge.ps1 -netAdapterName "WLAN-WiFi" -switchName "WslBridge" -Action 3
 
 # del
-# .\wsl2\scripts\09-setup-wsl-bridge.ps1 -netAdapterName "WLAN-WiFi" -switchName "WslBridge" -Action 4
+# .\scripts\09-setup-wsl-bridge.ps1 -netAdapterName "WLAN-WiFi" -switchName "WslBridge" -Action 4
 
 get-content "$env:USERPROFILE\.wslconfig"
 ```
